@@ -1,4 +1,10 @@
 import { Router } from "express";
-const router = Router();
+const userRouter = Router();
 
-export default router;
+userRouter.get("/test",(req,res)=>{
+    res.json({
+        message: "user router"
+    })
+})
+
+export default userRouter;
