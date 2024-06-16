@@ -16,7 +16,7 @@ export const userAuth = (req: CustomRequest,res: Response,next: NextFunction)=>{
     try {
         const decode : DecodedToken = jwt.verify(token,JWT_SECRET) as DecodedToken;
         
-        req.userId = decode.userId;
+        req.userId = parseInt(decode.userId);
         next();
     } catch (error) {
         return res.status(403).json({

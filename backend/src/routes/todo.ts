@@ -1,23 +1,24 @@
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
 import { userAuth } from "../middlewares/userAuthentication";
+import { CustomRequest } from "../types/CustomRequest";
 const todoRouter = Router();
 const prisma = new PrismaClient();
 interface todoPost{
     title: string;
     description: string;
-    authorId: any;
+
     
 
 }
-todoRouter.post("/",userAuth,async(req,res)=>{
+todoRouter.post("/",userAuth,async(req:CustomRequest,res)=>{
     const body: todoPost = req.body;
     try {
         const todo = await prisma.todo.create({
             data: {
                 title: body.title,
                 description: body.description,
-                authorId: 1
+                authorId: req.userId as number
             }
         })
         if(todo){
