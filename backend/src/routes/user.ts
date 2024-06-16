@@ -2,7 +2,8 @@ import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config";
-import { error } from "console";
+import { userAuth } from "../middlewares/userAuthentication";
+import { CustomRequest } from "../types/CustomRequest";
 const userRouter = Router();
 const prisma = new PrismaClient();
 
@@ -86,5 +87,6 @@ userRouter.post("/signin",async(req,res)=>{
         })
     }
 })
+
 
 export default userRouter;
