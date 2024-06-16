@@ -2,8 +2,8 @@ import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config";
-import { userAuth } from "../middlewares/userAuthentication";
-import { CustomRequest } from "../types/CustomRequest";
+import { SigninSchema, SignupSchema } from "../types/userTypes";
+
 const userRouter = Router();
 const prisma = new PrismaClient();
 
@@ -15,6 +15,12 @@ interface signupBody {
 
 userRouter.post("/signup", async (req, res) => {
     const body: signupBody = req.body;
+    const {success} = SignupSchema.safeParse(body);
+    if(!success){
+        return res.status(401).json({
+            message: "Incorrect inputs"
+        })
+    }
     const checkUser = await prisma.user.findFirst({
         where: {
             username: body.username
@@ -62,6 +68,12 @@ interface signinBody{
 }
 userRouter.post("/signin",async(req,res)=>{
     const body: signinBody = req.body;
+    const {success} = SigninSchema.safeParse(body);
+    if(!success){
+        return res.status(401).json({
+            message: "Incorrect inputs"
+        })
+    }
     try{
         const user = await prisma.user.findFirst({
             where:{

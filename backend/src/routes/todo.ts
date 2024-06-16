@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
 import { userAuth} from "../middlewares/userAuthentication";
 import { CustomRequest } from "../types/CustomRequest";
+import { TodoSchema, updateTodoSchema } from "../types/todoTypes";
 const todoRouter = Router();
 const prisma = new PrismaClient();
 interface todoPost{
@@ -13,6 +14,12 @@ interface todoPost{
 }
 todoRouter.post("/",userAuth,async(req:CustomRequest,res)=>{
     const body: todoPost = req.body;
+    const {success} = TodoSchema.safeParse(body);
+    if(!success){
+        return res.status(401).json({
+            message: "Incorrect inputs"
+        })
+    }
     try {
         const todo = await prisma.todo.create({
             data: {
@@ -23,7 +30,8 @@ todoRouter.post("/",userAuth,async(req:CustomRequest,res)=>{
         })
       
         res.status(200).json({
-                message: "todo added"
+                message: "todo added",
+                 todo: todo.id
             })
       
     } catch (e){
@@ -41,6 +49,12 @@ interface todoUpdate{
 }
 todoRouter.put("/update",userAuth,async(req,res)=>{
     const body: todoUpdate = req.body;
+    const {success} = updateTodoSchema.safeParse(body);
+    if(!success){
+        return res.status(401).json({
+            message: "Incorrect inputs"
+        })
+    }
     try {
         const todo = await prisma.todo.update({
             where:{
