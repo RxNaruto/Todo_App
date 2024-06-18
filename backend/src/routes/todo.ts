@@ -17,7 +17,7 @@ todoRouter.post("/",userAuth,async(req:CustomRequest,res)=>{
     const {success} = TodoSchema.safeParse(body);
     if(!success){
         return res.status(401).json({
-            message: "Incorrect inputs"
+            message: "Incorrect inputs at post"
         })
     }
     try {

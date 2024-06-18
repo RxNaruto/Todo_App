@@ -14,7 +14,7 @@ export const Signin=()=>{
     const navigate = useNavigate();
     return <div className="flex justify-center items-center h-screen">
        
-      <div className="bg-slate-200 w-96 rounded shadow-md">
+      <div className="bg-slate-200 w-96 rounded shadow-md ">
         
        <Heading label={"Signup"} />
        <Subheading label={"Enter your details here"} />
