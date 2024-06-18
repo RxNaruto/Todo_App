@@ -7,34 +7,33 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
 
-export const Signin=()=>{
-    const[username,setUsername]=useState("");
-    const[password,setPassword]=useState("");
-  
+export const Addtodo=()=>{
+    const[title,setTitle]=useState("");
+    const[description,setDescription]=useState("");
+    
     const navigate = useNavigate();
     return <div className="flex justify-center items-center h-screen">
        
       <div className="bg-slate-200 w-96 rounded shadow-md">
         
-       <Heading label={"Signup"} />
+       <Heading label={"Todo"} />
        <Subheading label={"Enter your details here"} />
-       <InputBox label={"Username"} placeholder="email" onChange={(e)=>{
-        setUsername(e.target.value);
+       <InputBox label={"Title"} placeholder="Todo Title" onChange={(e)=>{
+        setTitle(e.target.value);
        }}/>
-       <InputBox label={"Password"} placeholder="abcdef" onChange={(e)=>{
-        setPassword(e.target.value);
+       <InputBox label={"description"} placeholder="todo description" onChange={(e)=>{
+        setDescription(e.target.value);
        }}/>
       
        <div>
-        <Button label={"Signin"} onClick={async()=>{
+        <Button label={"Post"} onClick={async()=>{
                try{
-                const response = await axios.post("http://localhost:3000/api/v1/user/signin",{
-                    username,
-                    password,
-                   
+                await axios.post("http://localhost:3000/api/v1/todo",{
+                    title,
+                    description
+                    
                 })
-                localStorage.setItem("token",response.data.token);
-               navigate("/addtodo");
+               navigate("/todo");
                }catch(error){
                 console.log(error);
                }
