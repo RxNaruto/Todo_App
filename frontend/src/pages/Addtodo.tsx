@@ -26,7 +26,7 @@ export const Addtodo = () => {
                     }
                 }
             );
-            navigate("/todo");
+            navigate("/alltodos");
         } catch (error) {
             console.log(error);
         }
