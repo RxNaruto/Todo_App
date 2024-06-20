@@ -5,6 +5,7 @@ import { User } from "./pages/User";
 import { Todo } from "./pages/Todo";
 import { Addtodo } from "./pages/Addtodo";
 import { Alltodo } from "./pages/Alltodos";
+import { Home } from "./pages/Home";
 
 function App(){
   return(
@@ -17,6 +18,7 @@ function App(){
     <Route path="/todo" element={<Todo />} />
     <Route path="/addtodo" element={<Addtodo />}/>
     <Route path="/alltodos" element={<Alltodo />}/>
+    <Route path="/" element={<Home />}/>
 
     </Routes>
     </BrowserRouter>
